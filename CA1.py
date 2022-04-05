@@ -7,7 +7,8 @@ class Employee:
 	 OTMultiple=0
 	 TaxCreadit=0.0
 	 StandardBand=0
-	 s=0
+	 s=01;
+	 
 
 
 def computePayment():
