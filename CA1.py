@@ -117,4 +117,3 @@ x=jg.computePayment(1,'31/10/2021')
 print(x)
 
 
-ssertLessEqual(pi['Net Pay'],pi['Gross Pay'])
