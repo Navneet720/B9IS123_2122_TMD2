@@ -1,4 +1,7 @@
 
+import unittest
+import math
+
 class Employee(object):
 
     def __init__(self, StaffID, FirstName, LastName, RegHours, HourlyRate, OTMultiple, TaxCreadit ,StandardBand):
@@ -12,6 +15,7 @@ class Employee(object):
      self.StandardBand =StandardBand
 
     def computePayment(self, HourseWokred, date):
+        empDetails = {}
         overTimeHours = 0
         regularPay = 0
         overtimepay = 0
@@ -56,7 +60,8 @@ class Employee(object):
 
         if(totalTax > self.TaxCreadit):
          netTax = totalTax - self.TaxCreadit #TO CHHECK
-
+        else:
+            netTax = totalTax
 
         PRSI = PRSIrate * grossPay
         netDeduction = netTax + PRSI
@@ -73,8 +78,43 @@ class Employee(object):
         print("PRSI",PRSI)
         print("netDeduction",netDeduction)
         print("netPay",netPay)
+        empDetails["name"] = self.FirstName +" "+ self.LastName
+        empDetails["Date"] = date
+        empDetails['Regular Hours Worked'] = self.RegHours
+        empDetails["Overtime Hours Worked"] = overTimeHours
+        empDetails["Regular Rate"] = self.HourlyRate
+        empDetails["Overtime Rate"] = overTimeHourlyRate
+        empDetails["Regular Pay"] = regularPay
+        empDetails["Overtime Pay"] = overtimepay
+        empDetails["Gross Pay"] = grossPay
+        empDetails["Standard Rate Pay"] = self.StandardBand
+        empDetails["Higher Rate Pay"] = higherRatePay
+        empDetails["Standard Tax"] = standardTax
+        empDetails["Higher Tax"] = higerTax
+        empDetails["Total Tax"] = round(totalTax,2)
+        empDetails["Tax Credit"] = self.TaxCreadit
+        empDetails["Net Tax"] = round(netTax,2)
+        empDetails["PRSI"] = PRSI
+        empDetails["Net Deductions"] = round(netDeduction,2)
+        empDetails["Net Pay'"] = round(netPay,2)
+        # print(empDetails)
+
+        return empDetails
+
+# def testNetLessEqualGross(self):
+#   e=Employee(empDetails)
+#   pi=e.computePayment(1,'31/10/2021')
+#   self.a
+
+
+
+
 
 
 
 jg= Employee(10501018,'Navneet','Pandey', 37, 16, 1.5, 72, 710)
-jg.computePayment(1,'31/10/2021')
+x=jg.computePayment(1,'31/10/2021')
+print(x)
+
+
+ssertLessEqual(pi['Net Pay'],pi['Gross Pay'])
