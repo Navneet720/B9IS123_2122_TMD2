@@ -1,8 +1,16 @@
+# importing unitest framework for testing the methods given for CA.
 import unittest
 
 
-class Employee():
+# creating the class Employee.
+class Employee:
+
+    # Creating the python constructor to initialise instance  variable/data members of class.
+    # Using self keyword for accessing the instance defined within Employee class.
+    # Passing the parameters to constructor to initialise them
     def __init__(self, StaffID, FirstName, LastName, RegHours, HourlyRate, OTMultiple, TaxCreadit, StandardBand):
+
+        # initialising the data members of class
         self.StaffID = StaffID
         self.FirstName = FirstName
         self.LastName = LastName
@@ -12,24 +20,20 @@ class Employee():
         self.TaxCreadit = TaxCreadit
         self.StandardBand = StandardBand
 
+    # creating a method computePayment and passing parameters (HoursWorked and date)
     def computePayment(self, HourseWokred, date):
+
+        # creating and assigning  multiple values to variables
+        # over time rate=24 (already given)
+        # standard tax rate is 20%: 20/100=0.2 (standardRatePay = 0.2)
+        # higher tax rate is 40%: 40/100=0.4 (higerTaxRate = 0.4)
+        # higher tax rate is 4%: 4/100=0.04 (PRSIrate = 0.04)
+        overTimeHours, regularPay, overtimepay, overTimeHourlyRate, grossPay, standardRatePay, standardTax, netPay = 0, 0, 0, 24, 0, 0, 0, 0
+        standardTaxRate, higherRatePay, higerTax, higerTaxRate, totalTax, netTax, PRSIrate, netDeduction = 0.2, 0, 0, 0.4, 0, 0, 0.04, 0
+
+        # creating an empty dictionary
         empDetails = {}
-        overTimeHours = 0
-        regularPay = 0
-        overtimepay = 0
-        overTimeHourlyRate = 24
-        grossPay = 0
-        standardRatePay = 0
-        standardTax = 0
-        standardTaxRate = 0.2
-        higherRatePay = 0
-        higerTax = 0
-        higerTaxRate = 0.4
-        totalTaxm = 0
-        netTax = 0
-        PRSIrate = 0.04
-        netDeduction = 0
-        netPay = 0
+
         if HourseWokred > self.RegHours:
             overTimeHours = HourseWokred - self.RegHours
         else:
@@ -73,11 +77,11 @@ class Employee():
         empDetails["PRSI"] = PRSI
         empDetails["Net Deductions"] = round(netDeduction, 2)
         empDetails["Net Pay"] = round(netPay, 2)
-        # print(empDetails)
+        print(empDetails)
         return empDetails
 
 
-class Testsalary(unittest.TestCase):
+class Testpayment(unittest.TestCase):
 
     def testnet_pay_cannot_exceed_gross_pay(self):
         net_pay = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
