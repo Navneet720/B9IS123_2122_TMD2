@@ -45,18 +45,31 @@ class Employee:
 
         if (grossPay > self.StandardBand):
             higherRatePay = grossPay - self.StandardBand
+            standardTax = standardTaxRate * self.StandardBand
+        else:
+            standardTax=grossPay * standardTaxRate
 
-        standardTax = standardTaxRate * grossPay
+        # standardTax = standardTaxRate * self.StandardBand
+        print(standardTax)
+        print(self.StandardBand)
         higerTax = higerTaxRate * higherRatePay
         totalTax = higerTax + standardTax
 
         if (totalTax > self.TaxCreadit):
             netTax = totalTax - self.TaxCreadit  # TO CHHECK
+            print("HI",totalTax)
+            print("self.TaxCreadit")
         else:
             netTax = totalTax
-
+        print("gp",grossPay)
         PRSI = PRSIrate * grossPay
         netDeduction = netTax + PRSI
+        print(netTax)
+        print(PRSIrate)
+        print(grossPay)
+        print(PRSI)
+        print(netDeduction)
+        print(netPay)
         netPay = grossPay - netDeduction
         empDetails["name"] = self.FirstName + " " + self.LastName
         empDetails["Date"] = date
@@ -77,7 +90,7 @@ class Employee:
         empDetails["PRSI"] = PRSI
         empDetails["Net Deductions"] = round(netDeduction, 2)
         empDetails["Net Pay"] = round(netPay, 2)
-        print(empDetails)
+        # print(empDetails)
         return empDetails
 
 
@@ -85,23 +98,23 @@ class Testpayment(unittest.TestCase):
 
     def testnet_pay_cannot_exceed_gross_pay(self):
         net_pay = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
-        pi = net_pay.computePayment(0, '31/10/2021')
+        pi = net_pay.computePayment(1, '31/10/2021')
         self.assertLessEqual(pi['Net Pay'], pi['Gross Pay'])
 
     def testOvertimePay_cannotbenegative(self):
         overPay = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
-        pi = overPay.computePayment(0, '31/10/2021')
+        pi = overPay.computePayment(1, '31/10/2021')
         self.assertGreater(pi['Overtime Pay'], -1)
         # self.assertGreater(pi['Overtime Hours Worked'],-1)
 
     def testovertimeHourse_cannotbenegative(self):
         overTimeHourse = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
-        pi = overTimeHourse.computePayment(0, '31/10/2021')
+        pi = overTimeHourse.computePayment(1, '31/10/2021')
         self.assertGreater(pi['Overtime Hours Worked'], -1)
 
     def testregular_hours_cannot_morethan_hoursworked(self):
         reg_hours = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
-        pi = reg_hours.computePayment(42, '31/10/2021')
+        pi = reg_hours.computePayment(1, '31/10/2021')
         self.assertLessEqual(pi['Regular Hours Worked'], pi["Regular Hours Worked"] + pi["Overtime Hours Worked"])
 
     def test_Higher_Tax_cannot_be_negative(self):
@@ -111,5 +124,5 @@ class Testpayment(unittest.TestCase):
 
     def test_netpay_cannot_be_negative(self):
         net_pay = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
-        pi = net_pay.computePayment(0, '31/10/2021')
+        pi = net_pay.computePayment(25, '31/10/2021')
         self.assertGreater(pi['Net Pay'], -1)
