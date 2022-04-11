@@ -24,11 +24,10 @@ class Employee:
     def computePayment(self, HourseWokred, date):
 
         # creating and assigning  multiple values to variables
-        # over time rate=24 (already given)
         # standard tax rate is 20%: 20/100=0.2 (standardRatePay = 0.2)
         # higher tax rate is 40%: 40/100=0.4 (higerTaxRate = 0.4)
         # higher tax rate is 4%: 4/100=0.04 (PRSIrate = 0.04)
-        overTimeHours, regularPay, overtimepay, overTimeHourlyRate, grossPay, standardRatePay, standardTax, netPay = 0, 0, 0, 24, 0, 0, 0, 0
+        overTimeHours, regularPay, overtimepay, overTimeHourlyRate, grossPay, standardRatePay, standardTax, netPay = 0, 0, 0, 0, 0, 0, 0, 0
         standardTaxRate, higherRatePay, higerTax, higerTaxRate, totalTax, netTax, PRSIrate, netDeduction = 0.2, 0, 0, 0.4, 0, 0, 0.04, 0
 
         # creating an empty dictionary
@@ -38,6 +37,9 @@ class Employee:
             overTimeHours = HourseWokred - self.RegHours
         else:
             self.RegHours = HourseWokred
+
+        print("self.RegHours",self.HourlyRate)
+        overTimeHourlyRate = self.OTMultiple * self.HourlyRate
 
         regularPay = self.RegHours * self.HourlyRate
         overtimepay = overTimeHours * overTimeHourlyRate
@@ -58,18 +60,18 @@ class Employee:
         if (totalTax > self.TaxCreadit):
             netTax = totalTax - self.TaxCreadit  # TO CHHECK
             print("HI",totalTax)
-            print("self.TaxCreadit")
+            print(self.TaxCreadit)
         else:
             netTax = totalTax
         print("gp",grossPay)
         PRSI = PRSIrate * grossPay
         netDeduction = netTax + PRSI
-        print(netTax)
-        print(PRSIrate)
-        print(grossPay)
-        print(PRSI)
-        print(netDeduction)
-        print(netPay)
+        # print(netTax)
+        # print(PRSIrate)
+        # print(grossPay)
+        # print(PRSI)
+        # print(netDeduction)
+        # print(netPay)
         netPay = grossPay - netDeduction
         empDetails["name"] = self.FirstName + " " + self.LastName
         empDetails["Date"] = date
@@ -90,7 +92,7 @@ class Employee:
         empDetails["PRSI"] = PRSI
         empDetails["Net Deductions"] = round(netDeduction, 2)
         empDetails["Net Pay"] = round(netPay, 2)
-        # print(empDetails)
+        print(empDetails)
         return empDetails
 
 
@@ -124,5 +126,7 @@ class Testpayment(unittest.TestCase):
 
     def test_netpay_cannot_be_negative(self):
         net_pay = Employee(10501018, 'Navneet', 'Pandey', 37, 16, 1.5, 72, 710)
-        pi = net_pay.computePayment(25, '31/10/2021')
+        pi = net_pay.computePayment(1, '31/10/2021')
         self.assertGreater(pi['Net Pay'], -1)
+
+
