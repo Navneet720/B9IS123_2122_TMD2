@@ -28,7 +28,7 @@ class Employee:
     # creating a method computePayment and passing parameters (HoursWorked and date)
     def computePayment(self, HourseWokred, date):
 
-        # creating and assigning  multiple values to variables
+        # creating and initialising the varibles
         # standard tax rate is 20%: 20/100=0.2 (standardRatePay = 0.2)
         # higher tax rate is 40%: 40/100=0.4 (higerTaxRate = 0.4)
         # higher tax rate is 4%: 4/100=0.04 (PRSIrate = 0.04)
